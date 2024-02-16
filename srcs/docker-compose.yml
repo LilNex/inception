@@ -12,11 +12,24 @@ services:
       - inc
   wordpress:
     build: ./requirements/wordpress
+    env_file:
+      - .env
     restart: always
     volumes:
       - wordpress:/var/www/
     expose:
       - "9000"
+    networks:
+      - inc
+  mariadb:
+    build: ./requirements/mariadb
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - db-data:/var/lib/mysql
+    expose:
+      - "3306"
     networks:
       - inc
 
@@ -31,4 +44,5 @@ volumes:
   wordpress:
     driver: local
 
-  db:
+  db-data:
+    driver: local
