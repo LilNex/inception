@@ -1,5 +1,22 @@
 version: '3'
 
 services:
-    nginx:
-      build: ./
+  nginx:
+    build: ./requirements/nginx
+    restart: always
+    ports:
+      - "4443:443"
+    volumes:
+      - wordpress:/var/www/
+  wordpress:
+    build: ./requirements/wordpress
+    restart: always
+    volumes:
+      - wordpress:/var/www/
+
+networks:
+  inc:
+    driver: bridge
+volumes:
+  wordpress:
+  db:
