@@ -8,15 +8,27 @@ services:
       - "4443:443"
     volumes:
       - wordpress:/var/www/
+    networks:
+      - inc
   wordpress:
     build: ./requirements/wordpress
     restart: always
     volumes:
       - wordpress:/var/www/
+    expose:
+      - "9000"
+    networks:
+      - inc
 
 networks:
   inc:
     driver: bridge
+    driver_opts:
+      type: 'none' 								
+      o: 'bind'
+      device: '/home/data/wordpress' 	
 volumes:
   wordpress:
+    driver: local
+
   db:

@@ -15,8 +15,9 @@ RUN rm -rf /etc/nginx/sites-enabled/default
 
 COPY conf/site.conf /etc/nginx/sites-enabled/site.conf
 
-RUN chmod 755 /var/www
-RUN chown -R www-data:www-data /var/www
+RUN mkdir -p /var/www/wordpress
+RUN chmod 755 /var/www/wordpress
+RUN chown -R www-data:www-data /var/www/wordpress
 
 
 
