@@ -3,7 +3,7 @@ from debian:bullseye
 WORKDIR /app
 
 RUN apt update -y && apt upgrade -y \
-    && apt install wget apache2 php7.4 php7.4-fpm php7.4-mysqli -y 
+    && apt install wget apache2 php7.4 php7.4-fpm php7.4-mysqli libapache2-mod-php -y 
 
 RUN cd /tmp && wget -O wordpress.tar.gz https://fr.wordpress.org/latest-fr_FR.tar.gz \
     && tar -xf wordpress.tar.gz && mkdir -p /var/www/html \
@@ -11,11 +11,14 @@ RUN cd /tmp && wget -O wordpress.tar.gz https://fr.wordpress.org/latest-fr_FR.ta
 
 RUN sed -i 's/ServerName www\.example\.com/ServerName 0\.0\.0\.0/' /etc/apache2/sites-enabled/000-default.conf 
 
-RUN  a2dismod mpm_prefork && a2enmod mpm_event \
+RUN  a2dismod php7.4 && a2dismod mpm_prefork && a2enmod mpm_event \
     && a2enmod proxy proxy_fcgi && a2enconf php7.4-fpm && service apache2 restart
 
+# Add this to apache2.conf
+
+# <FilesMatch \.php$>
+#     SetHandler application/x-httpd-php
+# </FilesMatch>
 
 
-
-
-CMD ["sleep", "99999999"]
+CMD ["service", "apache2", "restart"]
