@@ -36,13 +36,17 @@ services:
 networks:
   inc:
     driver: bridge
-    driver_opts:
-      type: 'none' 								
-      o: 'bind'
-      device: '/home/data/wordpress' 	
 volumes:
   wordpress:
     driver: local
+    driver_opts:
+      type: 'none' 								
+      o: 'bind'
+      device: '$HOME/data/wordpress' 	
 
   db-data:
     driver: local
+    driver_opts:
+      type: 'none' 								
+      o: 'bind'
+      device: '$HOME/data/database' 	

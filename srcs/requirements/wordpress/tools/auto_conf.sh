@@ -14,6 +14,8 @@ wp config create	--allow-root \
 
 rm -f wp-config-sample.php
 
-wp core install --url=ismailchaiq.com --title=Example --path='/var/www/wordpress' --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com --allow-root
+wp core install --url=$WP_URL --title=Inception --path='/var/www/wordpress' --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_MAIL --allow-root
+wp user create $WP_USER $WP_USER_MAIL --user_pass=$WP_USER_PASSWORD --path='/var/www/wordpress' --allow-root
+
 
 php-fpm7.4 -F -R

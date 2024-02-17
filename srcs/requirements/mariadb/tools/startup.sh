@@ -10,5 +10,3 @@ fi
 
 mysqladmin shutdown 
 exec mysqld --user=mysql
-sleep 3000
-
