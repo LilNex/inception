@@ -32,6 +32,15 @@ services:
       - "3306"
     networks:
       - inc
+  redis:
+    build: ./requirements/bonus/redis
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - "6379"
+    networks:
+      - inc
 
 networks:
   inc:
