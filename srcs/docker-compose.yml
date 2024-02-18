@@ -53,6 +53,15 @@ services:
       - "30000-30009:30000-30009"
     networks:
       - inc
+  adminer:
+    build: ./requirements/bonus/adminer
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    networks:
+      - inc
 
 networks:
   inc:
