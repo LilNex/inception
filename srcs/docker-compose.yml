@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    restart: always
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/
+    networks:
+      - inc
+  wordpress:
+    build: ./requirements/wordpress
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - wordpress:/var/www/
+    expose:
+      - "9000"
+    networks:
+      - inc
+  mariadb:
+    build: ./requirements/mariadb
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - db-data:/var/lib/mysql
+    expose:
+      - "3306"
+    networks:
+      - inc
+  redis:
+    build: ./requirements/bonus/redis
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - "6379"
+    networks:
+      - inc
+  ftp:
+    build: ./requirements/bonus/ftp
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    networks:
+      - inc
+  adminer:
+    build: ./requirements/bonus/adminer
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    networks:
+      - inc
+  portfolio:
+    build: ./requirements/bonus/portfolio
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "18085:80"
+    networks:
+      - inc
+
+networks:
+  inc:
+    driver: bridge
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none' 								
+      o: 'bind'
+      device: '$HOME/data/wordpress' 	
+
+  db-data:
+    driver: local
+    driver_opts:
+      type: 'none' 								
+      o: 'bind'
+      device: '$HOME/data/database' 	
