@@ -41,6 +41,18 @@ services:
       - "6379"
     networks:
       - inc
+  ftp:
+    build: ./requirements/bonus/ftp
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    networks:
+      - inc
 
 networks:
   inc:
