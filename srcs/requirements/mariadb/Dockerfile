@@ -2,10 +2,10 @@ from debian:bullseye
 
 WORKDIR /app
 
-RUN apt update -y && apt upgrade -y 
+RUN apt-get update -y && apt-get upgrade -y 
 
 
-RUN apt install mariadb-server -y
+RUN apt-get install mariadb-server -y
 
 RUN sed -i 's|# port =|port =|g' /etc/mysql/mariadb.cnf
 RUN sed -i 's|socket =|#socket =|g' /etc/mysql/mariadb.cnf

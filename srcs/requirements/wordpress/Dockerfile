@@ -1,8 +1,8 @@
 from debian:bullseye
 
 
-RUN apt update -y && apt  upgrade -y \
-    && apt install wget unzip php7.4 php7.4-fpm php7.4-mysqli php7.4-redis -y 
+RUN apt-get update -y && apt-get  upgrade -y \
+    && apt-get install wget unzip php7.4 php7.4-fpm php7.4-mysqli php7.4-redis -y 
 
 RUN mkdir -p /var/www/wordpress
 

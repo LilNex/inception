@@ -3,6 +3,7 @@ version: '3'
 services:
   nginx:
     build: ./requirements/nginx
+    container_name: nginx
     restart: always
     ports:
       - "443:443"
@@ -12,6 +13,7 @@ services:
       - inc
   wordpress:
     build: ./requirements/wordpress
+    container_name: wordpress
     env_file:
       - .env
     restart: always
@@ -23,6 +25,7 @@ services:
       - inc
   mariadb:
     build: ./requirements/mariadb
+    container_name: mariadb
     restart: always
     env_file:
       - .env
@@ -34,6 +37,7 @@ services:
       - inc
   redis:
     build: ./requirements/bonus/redis
+    container_name: redis
     restart: always
     env_file:
       - .env
@@ -43,6 +47,7 @@ services:
       - inc
   ftp:
     build: ./requirements/bonus/ftp
+    container_name: ftp
     restart: always
     env_file:
       - .env
@@ -55,6 +60,7 @@ services:
       - inc
   adminer:
     build: ./requirements/bonus/adminer
+    container_name: adminer
     restart: always
     env_file:
       - .env
@@ -64,11 +70,12 @@ services:
       - inc
   portfolio:
     build: ./requirements/bonus/portfolio
+    container_name: portfolio
     restart: always
     env_file:
       - .env
     ports:
-      - "18085:80"
+      - "18080:80"
     networks:
       - inc
 
@@ -79,13 +86,13 @@ volumes:
   wordpress:
     driver: local
     driver_opts:
-      type: 'none' 								
+      type: 'none'
       o: 'bind'
-      device: '$HOME/data/wordpress' 	
+      device: '$HOME/data/wordpress'
 
   db-data:
     driver: local
     driver_opts:
-      type: 'none' 								
+      type: 'none'
       o: 'bind'
-      device: '$HOME/data/database' 	
+      device: '$HOME/data/database'

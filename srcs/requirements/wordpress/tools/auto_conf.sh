@@ -34,4 +34,4 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
 fi
 
-php-fpm7.4 -F -R
+exec php-fpm7.4 -F
